@@ -18,14 +18,14 @@ jobs:
         git config --global user.name 'Tim Barkman'
         git config --global user.email 'gickis1993@live.com'
 
-    - name: Debug env var
+    - name: Debug Environment Variables
       run: |
-        echo "AZURE_PAT is set to $AZURE_PAT"
+        echo "AZURE_PAT is set to: $AZURE_PAT"
 
     - name: Push to Azure Repo
       env: 
         AZURE_PAT: ${{ secrets.AZURE_PAT }}
       run: |
         echo "Adding remote with AZURE_PAT: $AZURE_PAT"
-        git remote add azure https://gickis1993@live.com:${{ secrets.AZURE_PAT }}@dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
-        git push azure master --force
+        git remote add azure https://dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
+        git push https://gickis1993@live.com:${AZURE_PAT}@dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman master --force
