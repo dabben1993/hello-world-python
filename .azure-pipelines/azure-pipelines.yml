@@ -1,0 +1,38 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureSubscription: 'todo' # add when permissions come through
+  appName: 'todo' # add when permissions come through
+  packagePath: '$(Build.ArtifactStagingDirectory)/drop/myapp.zip'
+
+steps:
+
+# Set up Python 3.10
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.10'
+    addToPath: true
+
+# Install dependencies
+- script: |
+    python -m venv venv 
+    source venv/bin/activate
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+# Create a deployment package
+- script: |
+    mkdir -p $(Build.ArtifactStagingDirectory)/drop
+    zip -r $(Build.ArtifactStagingDirectory)/drop/myapp.zip . -x "*.git*" -x "*venv*"
+  displayName: 'Create deployment package'
+
+# Publis artifacts
+- task: PublishBuildArtifacts@1
+  inputs:
+    artifactName: 'drop'
+    publishLocation: 'Container'
+  displayName: 'Publish artifacts'
