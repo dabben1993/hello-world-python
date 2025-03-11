@@ -13,14 +13,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    -name: Set up Git
-    run: |
-      git config --global user.name 'Tim Barkman'
-      git config --global user.email 'gickis1993@live.com'
+    - name: Set up Git
+      run: |
+        git config --global user.name 'Tim Barkman'
+        git config --global user.email 'gickis1993@live.com'
 
-    name: Push to Azure Repo
-    env: 
-      AZURE_PAT: ${{ secrets.AZURE_PAT }}
-    run: |
-      git remote add azure https://gickis1993@live.com:${{ secrets.AZURE_PAT }}@https://dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
-      git push azure master --force
+    - name: Push to Azure Repo
+      env: 
+        AZURE_PAT: ${{ secrets.AZURE_PAT }}
+      run: |
+        git remote add azure https://gickis1993@live.com:${{ secrets.AZURE_PAT }}@dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
+        git push azure master --force
