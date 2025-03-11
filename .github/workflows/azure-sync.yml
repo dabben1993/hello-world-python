@@ -20,7 +20,7 @@ jobs:
 
     - name: Debug env var
       run: |
-        echo "AZURE_PAT is set to $AZURE_PAT""
+        echo "AZURE_PAT is set to $AZURE_PAT"
 
     - name: Push to Azure Repo
       env: 
