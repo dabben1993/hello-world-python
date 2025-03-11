@@ -28,4 +28,4 @@ jobs:
       run: |
         echo "Adding remote with AZURE_PAT: $AZURE_PAT"
         git remote add azure https://dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
-        git push https://gickis1993@live.com:${AZURE_PAT}@dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman master --force
+        git push https://gickis1993:${AZURE_PAT}@dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman master --force
