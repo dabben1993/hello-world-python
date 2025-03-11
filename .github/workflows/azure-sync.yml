@@ -18,16 +18,14 @@ jobs:
         git config --global user.name 'Tim Barkman'
         git config --global user.email 'gickis1993@live.com'
 
-    - name: Set up GIT_ASKPASS
+    - name: Debug env var
       run: |
-        echo "echo \$AZURE_PAT" > askpass.sh
-        chmod +x askpass.sh
-      env:
-        AZURE_PAT: ${{ secrets.AZURE_PAT }}
+        echo "AZURE_PAT is set to $AZURE_PAT""
 
     - name: Push to Azure Repo
       env: 
-        GIT_ASKPASS: ./askpass.sh
+        AZURE_PAT: ${{ secrets.AZURE_PAT }}
       run: |
-        git remote add azure https://dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
+        echo "Adding remote with AZURE_PAT: $AZURE_PAT"
+        git remote add azure https://gickis1993@live.com:${{ secrets.AZURE_PAT }}@dev.azure.com/Capgemini-Sandbox-FS-BE/_git/Tim-Barkman
         git push azure master --force
