@@ -28,7 +28,7 @@ steps:
 # Step 3: Check for test files and run tests 
 - script: |
     source venv/bin/activate
-    if ls tests_*.py /dev/null 2>&1; then
+    if ls tests/* /dev/null 2>&1; then
         echo "Test files found, running tests..."
         python -m unittest discover -s . -p 'tests_*.py'
     else
