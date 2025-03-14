@@ -1,5 +1,5 @@
 trigger:
-- main  # Or your desired branch
+- master  # Or your desired branch
 
 pool:
   vmImage: 'ubuntu-latest'  # You can change this if you want to use another VM image
