@@ -30,8 +30,8 @@ steps:
     source venv/bin/activate
     if ls tests/* /dev/null 2>&1; then
         echo "Test files found, running tests..."
-        python -m unittest discover -s tests -p 'test_*.py'
-        echo "Exit code: $?"
+        python -m unittest discover -s tests -p 'test_*.py' 2>stderr.log
+        cat stderr.log
     else
         echo "No test files found, skipping tests."
     fi
