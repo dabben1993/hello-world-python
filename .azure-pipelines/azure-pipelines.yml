@@ -25,7 +25,19 @@ steps:
     pip install -r requirements.txt  # Install dependencies from requirements.txt
   displayName: 'Install Python Dependencies'
 
-# Step 3: Create a deployment package
+# Step 3: Check for test files and run tests 
+- script: |
+    source venv/bin/activate
+    if ls tests_*.py /dev/null 2>&1; then
+        echo "Test files found, running tests..."
+        python -m unittest discover -s . -p 'tests_*.py'
+    else
+        echo "No test files found, skipping tests."
+    fi
+  displayName: 'Run Tests'
+  failOnStderr: true  # Fail the build if there are errors in the test output
+
+# Step 4: Create a deployment package
 - script: |
     # Ensure the target directory exists
     mkdir -p $(Build.ArtifactStagingDirectory)/drop
@@ -34,14 +46,14 @@ steps:
     zip -r $(Build.ArtifactStagingDirectory)/drop/myapp.zip . -x "*.git*" -x "venv/*"
   displayName: 'Create Deployment Package'
 
-# Step 4: Publish artifacts (the zip file containing the app)
+# Step 5: Publish artifacts (the zip file containing the app)
 - task: PublishBuildArtifacts@1
   inputs:
     artifactName: 'drop'  # Name of the artifact to be published
     publishLocation: 'Container'
   displayName: 'Publish Artifacts'
 
-# Step 5: Deploy to Azure Web App
+# Step 6: Deploy to Azure Web App
 - task: AzureWebApp@1
   inputs:
     azureSubscription: $(azureSubscription)  # Use the Azure service connection
