@@ -1,8 +1,0 @@
-venv/
-__pycache__/
-dist/
-build/
-*.pyc
-.DS_Store
-.env
-tokens
